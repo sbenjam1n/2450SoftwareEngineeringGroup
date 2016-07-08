@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
   <head>
@@ -10,9 +11,27 @@
 	<link rel="stylesheet" TYPE="text/css" href="css/style.css">
   </head>
   <body>
+  
   <!--First Section Begin-->
-	<div class="row bg-blue fullWidth">
-		<div class="small-12 column fullHeight">
+	<div class="row bg-blue fullWidth fullHeight">
+		<!--Search Bars-->
+		<div class="row text-center">
+			<div class="small-6 column">
+				<div class="row collapse prefix-round">
+                    <div class="small-3 columns">
+                      <a href="#" class="button prefix">Go</a>
+                    </div>
+                    <div class="small-9 columns">
+                  <input type="text" placeholder="Value">
+                </div>
+              </div>
+			</div>
+			<div class="small-6 column">
+				Location Search Here
+			</div>
+		  </div>
+		 <!--End Search Bars-->
+		<div class="small-12 column">
 			<div class="row">
 				<div class="small-12 column text-center vhCenter">
 					<div class="row">
@@ -28,8 +47,24 @@
 	<!--First Section End-->
 	
 	<!--Second Section Begin-->
-	
+	<div class="row">
+		<div class="small-6 column small-centered text-center">
+			<h3>Sign Up For Text Alerts</h3>
+			<label><h5>Location</h5>
+				<input type="text" placeholder="City, State">
+			</label>
+			
+			<label><h5>Phone</h5>
+				<input type="text" placeholder="XXX-XXX-XXXX">
+			</label>
+			
+			<label><h5>Time</h5>
+				<input type="text" placeholder="Ex: 7:00 pm -- UTC">
+			</label>
+		</div>
+	</div>
 	<!--Second Section End-->
+	
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
