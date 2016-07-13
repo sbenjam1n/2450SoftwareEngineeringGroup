@@ -1,19 +1,20 @@
 //Steven Benjamin - 2450 Team Project - Weather Get
 
-var celcius;
-var frnht;
 
-var lon;
-var lat;
+//todo - get zip code or openweather city id from a user inputted location.
+
 
 var country="us";
-var city;
-var location;
 
 var zip;
 
-//Set usersChoice to true if user has supplied valid input that can be associated with a zip code.
+//number of dayts to forecast, 16 is the max
+var forecastLength = 2;
+
+//Set usersChoice to true if user has supplied a city that can be associated with a zip code.
 var usersChoice;
+
+
 
 $(document).ready(function getPosition() 
 {
@@ -32,9 +33,9 @@ $(document).ready(function getPosition()
     lon = json.lon;
 
     //Get the weather data from the open weather API
-    $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon +       "&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e", function(json) 
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e", function(json) 
     {
-      
+    //console.log(json);
       var country = json.sys.country;
       var city = json.name;
       var location = city + ", " + country;
@@ -42,30 +43,48 @@ $(document).ready(function getPosition()
       //Let's see if that worked...
       console.log(city);
       console.log(country);
-      console.log(location);
-      
+
+      //how to get the weather description
       var weather = json.weather[0].description;
+      console.log(weather);
 
+      //using the temprature converter
       var temp = json.main.temp;
-      celcius = Math.round((temp - 273.15));
-      frnht = Math.round(celcius * 1.8 + 32);
-      
-      console.log(celcius);
-      console.log(frnht);
+      var getTemp = new convertTemp(temp);
+      console.log(getTemp.celcius());
+      console.log(getTemp.frnht());
+     
+      //the forecast
+              $.getJSON('http://api.openweathermap.org/data/2.5/forecast/daily?q='+ city +','+ country + '&cnt=' + forecastLength + '&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e',function(json)
+              {
+               
+                //console.log(json);  
+                
 
+                
+                //how to get a date item from the retrieved forecast list...
+                var currentForecast = json.list[1].dt;
+                var date = new convertDate(currentForecast);
+                console.log(date.date());
 
+                var temp = json.list[1].temp.day;
+                //console.log(temp);
+    
+    
+              });
 
     });
   });
   } //end if 
   
-  
+
   //If we have a zip code...
   else
   {
-    
-    $.getJSON("http://api.openweathermap.org/data/2.5/weather?zip="+ zip +"," + country +"&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e",function(json)
+
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?zip="+ zip +"," + country + "&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e",function(json)
     {
+
       var country = json.sys.country;
       var city = json.name;
       var location = city + ", " + country;
@@ -73,20 +92,58 @@ $(document).ready(function getPosition()
       //Let's see if that worked...
       console.log(city);
       console.log(country);
-      console.log(location);
-      
+
+
       var weather = json.weather[0].description;
 
       var temp = json.main.temp;
-      celcius = Math.round((temp - 273.15));
-      frnht = Math.round(celcius * 1.8 + 32);
       
-      console.log(celcius);
-      console.log(frnht);        
-              
+      //using the temprature converter
+      var getTemp = new convertTemp(temp);
+      console.log(getTemp.celcius());
+      console.log(getTemp.frnht());
+     
+      console.log(getTemp.celcius());
+      console.log(getTemp.frnht());
+        
+      
+      $.getJSON('http://api.openweathermap.org/data/2.5/forecast/daily?q='+ city +','+ country + '&cnt=' + forecastLength + '&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e',function(json)
+       {
+        //console.log(json);    
+    
+    
+       });
     });
-    
-    
    }//end else
-
+  
+  
+  //converts a unix time stamp to a usable date
+  function convertDate(unixDate)
+  {
+      var a = new Date(unixDate * 1000);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      
+      return{
+      year: function(){ return a.getFullYear();},
+      month: function(){ return months[a.getMonth()];},
+      date: function(){ return a.getDate();},
+      hour: function(){ return a.getHours();},
+      min: function(){ return a.getMinutes();},
+      sec: function(){ return a.getSeconds();}
+      };
+  }
+  
+  //converts kelvin to celcius of fahrenheit
+  function convertTemp(temp)
+  {
+      var c = Math.round((temp - 273.15));
+      
+      return{
+      celcius : function(){return c;},
+      frnht : function(){return Math.round(c * 1.8 + 32);}
+      };
+    
+  }
+  
 });
+
