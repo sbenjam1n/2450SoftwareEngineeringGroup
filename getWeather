@@ -1,27 +1,17 @@
 //Steven Benjamin - 2450 Team Project - Weather Get
 
 
-//todo - get zip code or openweather city id from a user inputted location.
-
-
+//US ISO 3166 country code.
+var countryCode = "840";
 var country="us";
-
 var zip;
 
 //number of dayts to forecast, 16 is the max
 var forecastLength = 2;
 
-//Set usersChoice to true if user has supplied a city that can be associated with a zip code.
-var usersChoice;
-
-
 
 $(document).ready(function getPosition() 
 {
-
-  //Get weather details based on approximate location if the user doesn't have a preference.
-  if(usersChoice!==true)
-  {
     
   // Find the longitude and latitude based on the users ip.
   var location = "http://ip-api.com/json";
@@ -51,10 +41,11 @@ $(document).ready(function getPosition()
       //using the temprature converter
       var temp = json.main.temp;
       var getTemp = new convertTemp(temp);
+     
       console.log(getTemp.celcius());
       console.log(getTemp.frnht());
      
-      //the forecast
+              //the forecast
               $.getJSON('http://api.openweathermap.org/data/2.5/forecast/daily?q='+ city +','+ country + '&cnt=' + forecastLength + '&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e',function(json)
               {
                
@@ -65,6 +56,8 @@ $(document).ready(function getPosition()
                 //how to get a date item from the retrieved forecast list...
                 var currentForecast = json.list[1].dt;
                 var date = new convertDate(currentForecast);
+               
+                console.log(date.month());
                 console.log(date.date());
 
                 var temp = json.list[1].temp.day;
@@ -75,11 +68,11 @@ $(document).ready(function getPosition()
 
     });
   });
-  } //end if 
-  
+});
 
-  //If we have a zip code...
-  else
+
+//If we have a zip code...
+  function zipcodeForecast()
   {
 
     $.getJSON("http://api.openweathermap.org/data/2.5/weather?zip="+ zip +"," + country + "&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e",function(json)
@@ -102,21 +95,50 @@ $(document).ready(function getPosition()
       var getTemp = new convertTemp(temp);
       console.log(getTemp.celcius());
       console.log(getTemp.frnht());
-     
-      console.log(getTemp.celcius());
-      console.log(getTemp.frnht());
-        
       
       $.getJSON('http://api.openweathermap.org/data/2.5/forecast/daily?q='+ city +','+ country + '&cnt=' + forecastLength + '&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e',function(json)
        {
-        //console.log(json);    
-    
-    
+        //console.log(json); 
+        
        });
     });
-   }//end else
-  
-  
+   }
+
+
+   //If we have a city name...
+  function cityForecast(city)
+  {
+
+    $.getJSON('api.openweathermap.org/data/2.5/weather?q='+ city +','+ countryCode +'&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e',function(json)
+    {
+
+      var country = json.sys.country;
+      var city = json.name;
+      var location = city + ", " + country;
+
+      //Let's see if that worked...
+      console.log(city);
+      console.log(country);
+
+
+      var weather = json.weather[0].description;
+
+      var temp = json.main.temp;
+      
+      //using the temprature converter
+      var getTemp = new convertTemp(temp);
+      console.log(getTemp.celcius());
+      console.log(getTemp.frnht());
+      
+      $.getJSON('http://api.openweathermap.org/data/2.5/forecast/daily?q='+ city +','+ country + '&cnt=' + forecastLength + '&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e',function(json)
+       {
+        //console.log(json); 
+        
+       });
+    });
+   }
+
+   
   //converts a unix time stamp to a usable date
   function convertDate(unixDate)
   {
@@ -133,6 +155,7 @@ $(document).ready(function getPosition()
       };
   }
   
+
   //converts kelvin to celcius of fahrenheit
   function convertTemp(temp)
   {
@@ -145,5 +168,43 @@ $(document).ready(function getPosition()
     
   }
   
-});
 
+ //Gets the zip code for a specified area
+  function getZip(city, state)
+  {
+    var zip;
+    
+    $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + city + ',' + state + '&sensor=true', function(json)
+    {
+      console.log(json);
+      
+      zip = json.results[0].address_components[4].long_name;
+      console.log(zip);
+      
+      //if the city and state are invalid, json.status = ZERO_RESULTS
+      
+    });
+    
+    return zip;
+    
+  }
+
+ //Corrects the spelling of a user entered city.
+  function checkCity(city, state)
+  {
+    var c;
+    
+    $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + city + ',' + state + '&sensor=true', function(json)
+    {
+      console.log(json);
+      
+      //todo
+      
+      //if the city and state are invalid, json.status = ZERO_RESULTS
+      
+    });
+    
+    return c;
+    
+  }
+  
