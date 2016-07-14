@@ -17,18 +17,16 @@
 		<!--Search Bars-->
 		<div class="row text-center">
 			<div class="small-6 column">
-<<<<<<< HEAD
-				Google Search Here
-=======
-				<div class="row collapse prefix-round">
-                    <div class="small-3 columns">
-                      <a href="#" class="button prefix">Go</a>
-                    </div>
-                    <div class="small-9 columns">
-                  <input type="text" placeholder="Value">
-                </div>
-              </div>
->>>>>>> origin/master
+				<form onSubmit="googleSearch()">
+                  <div class="row">
+                  	<div class="small-1 columns"></div>
+                    <div class="small-5 columns">
+                      <label>
+                        <input id="textbox" type="text" placeholder="Search on Google..." onkeydown="if (event.keyCode == 13 || event.which == 13) { location='http://www.google.com/search?q=' + encodeURIComponent(document.getElementById('textbox').value);}" />
+                      </label>
+                  	</div>
+                  </div>
+                </form>
 			</div>
 			<div class="small-6 column">
 				Location Search Here
@@ -40,8 +38,8 @@
 				<div class="small-12 column text-center vhCenter">
 					<div class="row">
 						<div class="column">
-							<h1>Current Weather Icon Goes Here</h1>
-							<h2 class="subheader">Temperature Goes Here"</h2>
+							<img src="png/blizzard.png" alt="Blizzard Conditions" class="img25"/>
+							<h2>24°</h2>
 						</div>
 					</div>
 				</div>
@@ -69,6 +67,7 @@
 	</div>
 	<!--Second Section End-->
 	
+    <script src="js/search.js"></script>
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>

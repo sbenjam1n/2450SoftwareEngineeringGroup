@@ -1904,7 +1904,7 @@ html.is-reveal-open body {
     margin-left: 0;
     border: 0;
     border-radius: 0; }
-  @media screen and (max-width: 39.9375em) {
+  @media screen and (max-width : 24.125em ){
     .reveal {
       top: 0;
       left: 0;
