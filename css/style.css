@@ -3,6 +3,10 @@
 	background-color: #5f85ff;
 }
 
+.bg-white {
+	background-color: #efefef;
+}
+
 /*Full Page Style*/
 .fullWidth {
 	max-width: 100%;
@@ -24,4 +28,9 @@
 .h50 {
 	max-height: 35%;
 	width: auto;
+}
+
+/*Custom Text Styling*/
+.temp {
+	font-size: 10vw; /*based on viewport height*/
 }
