@@ -1,4 +1,6 @@
 
+
+
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
   <head>
@@ -9,45 +11,57 @@
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/app.css">
 	<link rel="stylesheet" TYPE="text/css" href="css/style.css">
+
   </head>
-  <body>
+  <body class="bg-blue">
   
   <!--First Section Begin-->
-	<div class="row bg-blue fullWidth fullHeight">
+	<div class="row bg-blue fullHeight">
 		<!--Search Bars-->
 		<div class="row text-center">
 			<div class="small-6 column">
-				<div class="row collapse prefix-round">
-                    <div class="small-3 columns">
-                      <a href="#" class="button prefix">Go</a>
-                    </div>
-                    <div class="small-9 columns">
-                  <input type="text" placeholder="Value">
-                </div>
-              </div>
+				<form onSubmit="googleSearch()">
+                  <div class="row">
+                    <div class="small-12 columns">
+                      <label>
+                        <input id="textbox" type="text" placeholder="Search on Google..." onkeydown="if (event.keyCode == 13 || event.which == 13) { location='http://www.google.com/search?q=' + encodeURIComponent(document.getElementById('textbox').value);}" />
+                      </label>
+                  	</div>
+                  </div>
+                </form>
 			</div>
 			<div class="small-6 column">
-				Location Search Here
+				<form onSubmit="googleSearch()">
+                  <div class="row">
+                    <div class="small-12 columns">
+                      <label>
+                        <input id="textbox" type="text" placeholder="Use Different Zip COde" onkeydown="if (event.keyCode == 13 || event.which == 13) { location='http://www.google.com/search?q=' + encodeURIComponent(document.getElementById('textbox').value);}" />
+                      </label>
+                  	</div>
+                  </div>
+                </form>
 			</div>
 		  </div>
 		 <!--End Search Bars-->
-		<div class="small-12 column">
-			<div class="row">
-				<div class="small-12 column text-center vhCenter">
-					<div class="row">
-						<div class="column">
-							<h1>Current Weather Icon Goes Here</h1>
-							<h2 class="subheader">Temperature Goes Here"</h2>
-						</div>
+		 
+		 <!--Start Center Image/Test-->
+		<div class="row vhCenter">
+			<div class="small-8 column text-center small-centered" id="weather">
+				<div class="row">
+					<div class="column">
+						<img id="currentImg" src="" alt=""/>
+						<p id="currentTemp"></p>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!--End Center Image/Text-->
 	</div>
 	<!--First Section End-->
 	
 	<!--Second Section Begin-->
-	<div class="row">
+	<!--Old code
+	<div class="row bg-white fullWidth">
 		<div class="small-6 column small-centered text-center">
 			<h3>Sign Up For Text Alerts</h3>
 			<label><h5>Location</h5>
@@ -63,8 +77,35 @@
 			</label>
 		</div>
 	</div>
+	-->
+	<!--New from created by Dan -->
+	<form action="welcome.php" method="POST">
+            <div class="row bg-white fullWidth">
+                <div class="small-6 column small-centered text-center">
+                    <h3>Sign Up For Text Alerts</h3>
+                    <label><h5>Name</h5>
+                        <input type="text" placeholder="Joe">
+                    </label>
+
+                    <label><h5>Location</h5>
+                        <input type="text" placeholder="ZIP Code" name="zip">
+                    </label>
+
+                    <label><h5>Email</h5>
+                        <input type="text" placeholder="weather@wather.com" name="email">
+                    </label>
+                    
+                    <input type="submit" value="Submit">
+                </div>
+            </div>
+        </form>
 	<!--Second Section End-->
 	
+	<!--Javascript Includes-->
+	  <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.8.4/dojo/dojo.js"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+	  <script src="js/resize.js"></script>
+    <script src="js/search.js"></script>
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
