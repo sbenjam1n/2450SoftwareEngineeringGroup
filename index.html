@@ -9,10 +9,13 @@
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/app.css">
 	<link rel="stylesheet" TYPE="text/css" href="css/style.css">
-	<script src="js/weatherGet.js"></script>
-	<script>
-		window.onload = function() {
-			yourFunction(param1, param2);  //just a template will continue later
+	<script type="text/javascript" src="js/weatherGet.js">
+	</script>
+	<script>  //thought this was simple and would work but nope. gps vars below are in weatherGet.js
+		$window.onload = function() {
+			document.getElementById("temp").innerHTML = gpsTemp;
+			document.getElementById("location").innerHTML = gpsCity;
+			
 		};
 	</script>
   </head>
