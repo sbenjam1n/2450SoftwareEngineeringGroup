@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    Google Search
+  </title>
+  <script>
+  function searchGoogle() {
+    var searchString = document.getElementById('searchString').value;
+    document.getElementById('googles').action = "https://www.google.com/?gws_rd=ssl#q=" + searchString; //Will set it
+  }
+  </script>
+</head>
+<body>
+  Google Search
+  <form id="googles" onsubmit="searchGoogle();" target="_blank" method="post">
+    <input type="text" id="searchString">
+    <input type="submit">
+  </body>
+  </html>
