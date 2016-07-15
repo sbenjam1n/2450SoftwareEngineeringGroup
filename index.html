@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/app.css">
 	<link rel="stylesheet" TYPE="text/css" href="css/style.css">
+	<script src="js/weatherGet.js"></script>
+	<script>
+		window.onload = function() {
+			yourFunction(param1, param2);  //just a template will continue later
+		};
+	</script>
   </head>
   <body class="bg-blue">
 
@@ -45,8 +51,9 @@
 			<div class="small-8 column text-center small-centered" id="weather">
 				<div class="row">
 					<div class="column">
-						<img src="png/blizzard.png" alt="Blizzard Conditions"/>
-						<p class="temp">24°</p>
+						<img src="png/blizzard.png" alt="Blizzard Conditions" name="icon"/>
+						<p class="temp" name="temp">24°</p>
+						<p class="location" name="location">Taylorsville</p>
 					</div>
 				</div>
 			</div>
