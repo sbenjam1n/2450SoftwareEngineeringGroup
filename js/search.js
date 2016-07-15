@@ -1,5 +1,5 @@
 // JavaScript Document
-function () {
-    fname = document.forms[0].fname.value;
-    alert("Hello " + fname + "! You will now be redirected to www.w3Schools.com");
-}
+function searchGoogle() {
+    var searchString = document.getElementById('searchString').value;
+    document.getElementById('googles').action = "https://www.google.com/?gws_rd=ssl#q=" + searchString; //Will set it
+  }
