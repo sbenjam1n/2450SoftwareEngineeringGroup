@@ -10,6 +10,11 @@ var countryCode = "840";
 var country="us";
 var zip;
 
+//wanted some global vars for onload use, probably doing it wrong
+var gpsCity;
+var gpsWeather;
+var gpsTemp;
+
 //number of dayts to forecast, 16 is the max
 var forecastLength = 2;
 
@@ -26,12 +31,14 @@ $(document).ready(function getPosition()
     lat = json.lat;
     lon = json.lon;
 
-    //Get the weather data from the open we  ather API
+    //Get the weather data from the open weather API
     $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=ccd8e53c44061ba9fa3596d8aa75cc5e", function(json) 
     {
     //console.log(json);
       var country = json.sys.country;
       var city = json.name;
+	  
+	  gpsCity = city;               //gps globals are instansiated in this function
       var location = city + ", " + country;
 
       //Let's see if that worked...
@@ -40,11 +47,15 @@ $(document).ready(function getPosition()
 
       //how to get the weather description
       var weather = json.weather[0].description;
+	  
+	  gpsWeather = weather;       //gps global
       console.log(weather);
 
       //using the temprature converter
       var temp = json.main.temp;
       var getTemp = new convertTemp(temp);
+	  
+	  gpsTemp = getTemp.frnht();
      
       console.log(getTemp.celcius());
       console.log(getTemp.frnht());
@@ -160,7 +171,7 @@ $(document).ready(function getPosition()
   }
   
 
-  //converts kelvin to celcius of fahrenheit
+  //converts kelvin to celcius or fahrenheit
   function convertTemp(temp)
   {
       var c = Math.round((temp - 273.15));
