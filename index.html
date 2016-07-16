@@ -27,11 +27,11 @@
                 </form>
 			</div>
 			<div class="small-6 column">
-				<form onSubmit="googleSearch()">
+	        <form>
                   <div class="row">
                     <div class="small-12 columns">
                       <label>
-                        <input id="textbox" type="text" placeholder="Use Different Zip COde" onkeydown="if (event.keyCode == 13 || event.which == 13) { location='http://www.google.com/search?q=' + encodeURIComponent(document.getElementById('textbox').value);}" />
+                        <input id="zipTextbox" type="text" placeholder="Use Different Zip Code"/>
                       </label>
                   	</div>
                   </div>
@@ -45,9 +45,8 @@
 			<div class="small-8 column text-center small-centered" id="weather">
 				<div class="row">
 					<div class="column">
-						<img src="png/blizzard.png" alt="Blizzard Conditions" name="icon" id="icon"/>
-						<p class="temp" name="temp" id="temp">24°</p>
-						<p class="location" name="location" id="location">Taylorsville</p>
+						<img id="currentImg" src="" alt=""/>
+						<p id="currentTemp"></p>
 					</div>
 				</div>
 			</div>
@@ -85,14 +84,14 @@
                     </label>
 
                     <label><h5>Location</h5>
-                        <input type="text" placeholder="ZIP Code" name="zip">
+                        <input id='zipAlerts' type="text" placeholder="ZIP Code" name="zip">
                     </label>
 
                     <label><h5>Email</h5>
                         <input type="text" placeholder="weather@wather.com" name="email">
                     </label>
-
-                    <input type="submit" value="Submit">
+                    
+                    <input id='setAlerts' type="submit" value="Submit">
                 </div>
             </div>
         </form>
@@ -100,12 +99,13 @@
 
 	<!--Javascript Includes-->
 
-	<script src="js/resize.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.8.4/dojo/dojo.js"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+    <script src="js/resize.js"></script>
     <script src="js/search.js"></script>
-    <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
     <script src="js/app.js"></script>
-    <script type="text/javascript" src="js/weatherGet.js">
+    <script>src="js/getWeather"</script>
   </body>
 </html>
